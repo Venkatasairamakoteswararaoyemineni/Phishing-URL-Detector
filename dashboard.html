@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Phishing Website Detection System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>AI-Powered Phishing Website Detection</h1>
+
+    <form method="POST">
+
+        <input type="text"
+               name="url"
+               placeholder="Enter Website URL"
+               required>
+
+        <button type="submit">
+            Scan Website
+        </button>
+
+    </form>
+
+    {% if result %}
+
+    <div class="result-box">
+
+        <h2>Detection Result</h2>
+
+        <p class="{{ result.lower() }}">
+            {{ result }}
+        </p>
+
+        <h3>Threat Score: {{ score }}</h3>
+
+    </div>
+
+    {% endif %}
+
+    <div class="logs-section">
+
+        <h2>Recent Scan Logs</h2>
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>URL</th>
+                <th>Result</th>
+                <th>Threat Score</th>
+                <th>Timestamp</th>
+            </tr>
+
+            {% for log in logs %}
+
+            <tr>
+
+                <td>{{ log[0] }}</td>
+                <td>{{ log[1] }}</td>
+                <td class="{{ log[2].lower() }}">
+                    {{ log[2] }}
+                </td>
+                <td>{{ log[3] }}</td>
+                <td>{{ log[4] }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
